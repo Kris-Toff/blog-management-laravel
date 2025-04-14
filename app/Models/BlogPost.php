@@ -19,6 +19,7 @@ class BlogPost extends Model
         'content',
         'status',
         'created_by',
+        'user_id',
     ];
 
     /**
@@ -29,5 +30,11 @@ class BlogPost extends Model
     protected $hidden = [
         'updated_at',
         'deleted_at',
+        'user_id'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

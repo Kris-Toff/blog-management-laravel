@@ -11,7 +11,8 @@ class BlogPostController extends Controller
 {
     public function index()
     {
-        $blog_post = BlogPost::get()->toArray();
+        $user = Auth::user();
+        $blog_post = BlogPost::where('user_id', $user->id)->get()->toArray();
 
         return response()->json(['blog_posts' => $blog_post], 200);
     }
@@ -35,6 +36,7 @@ class BlogPostController extends Controller
             'content' => $request->content,
             'status' => $request->status,
             'created_by' => $user->name,
+            'user_id' => $user->id,
         ]);
 
         return response()->json(['message' => 'Created'], 201);
@@ -62,5 +64,21 @@ class BlogPostController extends Controller
         $blog_post->delete();
 
         return response()->json(['message' => 'Successfully deleted post'], 200);
+    }
+
+    public function updateStatus(BlogPost $blog_post, Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'status' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        $blog_post->status = $request->status;
+        $blog_post->save();
+
+        return response()->json(['message' => 'Successfully updated status'], 200);
     }
 }
