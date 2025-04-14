@@ -46,7 +46,7 @@ class BlogPostController extends Controller
             'user_id' => $user->id,
         ]);
 
-        return response()->json(['message' => 'Created'], 201);
+        return response()->json(['message' => 'Successfully created post'], 201);
     }
 
     public function update(BlogPost $blog_post, Request $request)
