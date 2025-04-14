@@ -54,6 +54,13 @@ class BlogPostController extends Controller
 
         $blog_post->update($request->all());
 
-        return response()->json(['message' => 'Successfully updated item'], 200);
+        return response()->json(['message' => 'Successfully updated post'], 200);
+    }
+
+    public function destroy(BlogPost $blog_post)
+    {
+        $blog_post->delete();
+
+        return response()->json(['message' => 'Successfully deleted post'], 200);
     }
 }

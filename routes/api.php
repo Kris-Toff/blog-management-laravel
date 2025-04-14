@@ -9,6 +9,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('/blog-posts', [BlogPostController::class, "index"]);
     Route::post('/blog-post', [BlogPostController::class, "store"]);
     Route::put('/blog-post/{blog_post}', [BlogPostController::class, "update"]);
+    Route::post('/blog-post/archive/{blog_post}', [BlogPostController::class, "destroy"]);
 });
 
 
