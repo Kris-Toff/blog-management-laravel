@@ -34,7 +34,8 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
-        return response()->json(['message' => 'Successfully logged out']);
+
+        return redirect(env('APP_QUASAR_URL') . '#/login');
     }
 
     public function register(Request $request)
