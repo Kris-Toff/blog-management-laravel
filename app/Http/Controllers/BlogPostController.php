@@ -17,6 +17,13 @@ class BlogPostController extends Controller
         return response()->json(['blog_posts' => $blog_post], 200);
     }
 
+    public function getPublishedPosts()
+    {
+        $blog_post = BlogPost::where('status', 'Publish')->get()->toArray();
+
+        return response()->json(['blog_posts' => $blog_post], 200);
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
