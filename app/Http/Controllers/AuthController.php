@@ -31,11 +31,16 @@ class AuthController extends Controller
         ]);
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        Auth::logout();
+        $user = Auth::user();
+        $user->token()->revoke();
 
-        return redirect(env('APP_QUASAR_URL') . '#/login');
+        return response()->json([
+            'status' => 1,
+            'message' => "Logout successfully",
+            'redirect_url' => env('APP_QUASAR_URL') . '#/login'
+        ]);
     }
 
     public function register(Request $request)
